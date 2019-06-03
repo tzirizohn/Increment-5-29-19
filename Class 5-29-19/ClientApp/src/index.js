@@ -1,19 +1,25 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-import './index.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
+import Button from './Button';
+import Display from './Display';
 
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
+class App extends React.Component {
+    state = {
+        number1:0
+    }
 
-ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
-    <App />
-  </BrowserRouter>,
-  rootElement);
+    increment = () => {
+        this.setState({ number1: this.state.number1+1 });
+    }
 
-registerServiceWorker();
+    render() {
+        return (
+            <div className="container" style={{ marginTop: 40 }}>
+                <Button increment={this.increment} />
+                <Display text={this.state.number1} />
+            </div>
+        );
+    }
+}
+
+render(<App />, document.getElementById('root'));
